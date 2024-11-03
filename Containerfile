@@ -69,19 +69,17 @@ RUN mkdir -p /var/lib/alternatives && \
 FROM scratch AS ctx
 COPY / /
 
-# Build, Clean-up, Commit
-RUN --mount=type=cache,dst=/var/cache/rpm-ostree \
-    --mount=type=bind,from=ctx,source=/,target=/ctx \
-    --mount=type=bind,from=akmods,source=/rpms,target=/tmp/akmods \
+RUN rpm-ostree cliwrap install-to-root / && \
     mkdir -p /var/lib/alternatives && \
-    /ctx/build_files/build-dx.sh  && \
-    fc-cache --system-only --really-force --verbose && \
+    /ctx/build_files/build-base.sh  && \
     mv /var/lib/alternatives /staged-alternatives && \
-    /ctx/build_files/clean-stage.sh \
+    /ctx/build_files/clean-stage.sh && \
     ostree container commit && \
     mkdir -p /var/lib && mv /staged-alternatives /var/lib/alternatives && \
     mkdir -p /var/tmp && \
     chmod -R 1777 /var/tmp
+
+
 
 ## NOTES:
 # - /var/lib/alternatives is required to prevent failure with some RPM installs
