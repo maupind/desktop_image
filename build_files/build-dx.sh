@@ -11,7 +11,7 @@ sysctl -p
 
 #/tmp/build_files/copr-repos-dx.sh
 #/tmp/build_files/install-akmods-dx.sh
-/tmp/build_files/packages-dx.sh
+#/tmp/build_files/packages-dx.sh
 #/ctx/build_files/image-info.sh
 /tmp/build_files/fetch-install-dx.sh
 /tmp/build_files/fonts-dx.sh
