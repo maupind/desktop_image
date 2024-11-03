@@ -38,6 +38,18 @@ ARG SOURCE_SUFFIX="-gnome-nvidia"
 ## SOURCE_TAG arg must be a version built for the specific image: eg, 39, 40, gts, latest
 ARG SOURCE_TAG="latest"
 
+ARG BASE_IMAGE_NAME="${BASE_IMAGE_NAME:-silverblue}"
+ARG IMAGE_FLAVOR="${IMAGE_FLAVOR:-main}"
+ARG AKMODS_FLAVOR="${AKMODS_FLAVOR:-main}"
+ARG SOURCE_IMAGE="${SOURCE_IMAGE:-${BASE_IMAGE_NAME}-${IMAGE_FLAVOR}}"
+ARG BASE_IMAGE="ghcr.io/ublue-os/${SOURCE_IMAGE}"
+ARG FEDORA_MAJOR_VERSION="${FEDORA_MAJOR_VERSION:-40}"
+ARG TARGET_BASE="${TARGET_BASE:-bluefin}"
+ARG NVIDIA_TYPE="${NVIDIA_TYPE:-}"
+ARG KERNEL="${KERNEL:-6.10.10-200.fc40.x86_64}"
+ARG UBLUE_IMAGE_TAG="${UBLUE_IMAGE_TAG:-latest}"
+ARG SHA_HEAD_SHORT="${SHA_HEAD_SHORT}"
+
 
 ### 2. SOURCE IMAGE
 ## this is a standard Containerfile FROM using the build ARGs above to select the right upstream image
