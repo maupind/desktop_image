@@ -67,8 +67,8 @@ RUN chmod -R +x /tmp/build_files
 
 RUN mkdir -p /var/lib/alternatives && \
     /tmp/build.sh && \
-    /tmp/build_files/build-dx.sh  && \
-    /tmp/build_files/clean-stage.sh \
+    /tmp/build_files/build-dx.sh   \
+    #/tmp/build_files/clean-stage.sh \
     ostree container commit
 ## NOTES:
 # - /var/lib/alternatives is required to prevent failure with some RPM installs
