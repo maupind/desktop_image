@@ -16,6 +16,6 @@ sysctl -p
 /tmp/build_files/fetch-install-dx.sh
 /tmp/build_files/fonts-dx.sh
 /tmp/build_files/workarounds.sh
-/tmp/build_files/systemd-dx.sh
+#/tmp/build_files/systemd-dx.sh
 #/tmp/build_files/branding-dx.sh
 /tmp/build_files/cleanup-dx.sh
