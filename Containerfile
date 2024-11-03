@@ -47,12 +47,21 @@ FROM ghcr.io/ublue-os/${SOURCE_IMAGE}${SOURCE_SUFFIX}:${SOURCE_TAG}
 ### 3. MODIFICATIONS
 ## make modifications desired in your image and install packages by modifying the build.sh script
 ## the following RUN directive does all the things required to run "build.sh" as recommended.
+FROM scratch AS ctx
+COPY / /
 
 COPY build.sh /tmp/build.sh
 
 RUN mkdir -p /var/lib/alternatives && \
     /tmp/build.sh && \
+    /ctx/build_files/build-base.sh  && \
+    mv /var/lib/alternatives /staged-alternatives && \
+    /ctx/build_files/clean-stage.sh && \
     ostree container commit
+    mkdir -p /var/lib && mv /staged-alternatives /var/lib/alternatives && \
+    mkdir -p /var/tmp && \
+    chmod -R 1777 /var/tmp
+
 
 # Add bluefin code
 
@@ -66,18 +75,7 @@ RUN mkdir -p /var/lib/alternatives && \
 #ARG KERNEL="${KERNEL:-6.10.10-200.fc40.x86_64}"
 #ARG UBLUE_IMAGE_TAG="${UBLUE_IMAGE_TAG:-latest}"
 
-FROM scratch AS ctx
-COPY / /
 
-RUN rpm-ostree cliwrap install-to-root / && \
-    mkdir -p /var/lib/alternatives && \
-    /ctx/build_files/build-base.sh  && \
-    mv /var/lib/alternatives /staged-alternatives && \
-    /ctx/build_files/clean-stage.sh && \
-    ostree container commit && \
-    mkdir -p /var/lib && mv /staged-alternatives /var/lib/alternatives && \
-    mkdir -p /var/tmp && \
-    chmod -R 1777 /var/tmp
 
 
 
