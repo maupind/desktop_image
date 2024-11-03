@@ -6,7 +6,7 @@ set -ouex pipefail
 # Apply IP Forwarding before installing Docker to prevent messing with LXC networking
 sysctl -p
 
-cp packages.json /tmp/packages.json
+#cp packages.json /tmp/packages.json
 rsync -rvK /system_files/dx/ /
 
 /build_files/copr-repos-dx.sh
