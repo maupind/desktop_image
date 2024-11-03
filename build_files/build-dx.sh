@@ -7,7 +7,7 @@ set -ouex pipefail
 sysctl -p
 
 #cp packages.json /tmp/packages.json
-rsync -rvK /system_files/dx/ /
+#rsync -rvK /system_files/dx/ /
 
 /build_files/copr-repos-dx.sh
 /build_files/install-akmods-dx.sh
